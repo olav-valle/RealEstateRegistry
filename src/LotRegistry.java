@@ -74,7 +74,7 @@ public class LotRegistry {
      * @return iterator containing land lot objects with matching lot ID
      */
     public Iterator search(String keyword){
-        Iterator it = lotMap.keySet().iterator(); // make iterator of HashMap keys
+        Iterator it = keyIterator(); // make iterator of HashMap keys
         HashSet match = new HashSet<LandLot>(); //collect matching LandLot objects
 
         while(it.hasNext())
@@ -101,7 +101,7 @@ public class LotRegistry {
 
     /**
      * Returns the average of the area size of all land lots in registry.
-     * @return average double value of average area size across all lots in registry.
+     * @return double of average area size across all lots in registry.
      */
     public double getAverageArea()
     {
@@ -111,6 +111,21 @@ public class LotRegistry {
                 .reduce(0.0, Double::sum); /*sum all land lot area sizes*/
         // average = sum of all entries / number of entries
         return average / lotMap.size(); // divide sum of area by number of land lot objects in collection.
+    }
+
+    /**
+     * Returns an iterator object with all land lots with a matching lot number.
+     * @param lotNumber the lot number to filter land lots by.
+     * @return iterator of land lots that match parameter.
+     */
+    public Iterator filterByLotNumber(int lotNumber)
+    {
+        this.lotMap.values().stream();
+        Iterator it = valuesIterator();
+        while(it.hasNext())
+        {
+            if(it.next().)
+        }
     }
 
     /**

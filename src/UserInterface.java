@@ -23,11 +23,13 @@ public class UserInterface {
 
         while (!finished)
         {
-
             switch (this.getIntInput()) // get int input from user
             {
+                case 1: ;
+                case 2: ;
+                case 3: ;
                 case 0: finished = true;
-                //exits application
+                //exits menu
             }
         }
      System.exit(0); // exit with 0
