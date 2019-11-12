@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A registry holding a collection of LandLot objects.
@@ -67,11 +69,25 @@ public class LotRegistry {
     }
 
     /**
-     * search
+     * Compares a search keyword to the lot ID of all land lots in collection,
+     * and returns an iterator containing all matches.
+     * @return iterator containing land lot objects with matching lot ID
      */
-    public void search(){
-        Iterator it = lotMap.values().iterator(); // make iterator
-        //it.forEachRemaining();
+    public Iterator search(String keyword){
+        Iterator it = lotMap.keySet().iterator(); // make iterator of HashMap keys
+        HashSet match = new HashSet<LandLot>(); //collect matching LandLot objects
+
+        while(it.hasNext())
+        {
+            String id = (String) it.next(); // The keys of lotMap are Strings
+            // get next lot ID, i.e. HashMap key
+
+            if(id.contains(keyword)) // if ID contains search term
+            {
+                match.add(lotMap.get(id));  // add LandLot to set of matches
+            }//if
+        }//while
+        return match.iterator();
     }
 
     /**
@@ -81,5 +97,37 @@ public class LotRegistry {
     public int getRegistrySize()
     {
         return lotMap.size();
+    }
+
+    /**
+     * Returns the average of the area size of all land lots in registry.
+     * @return average double value of average area size across all lots in registry.
+     */
+    public double getAverageArea()
+    {
+        double average = lotMap.entrySet().stream() /*stream of all entries in HashMap*/
+                .map(Map.Entry::getValue) /* map stream to HashMap values*/
+                .map(l -> l.getArea()) /*map stream to area size of land lots */
+                .reduce(0.0, Double::sum); /*sum all land lot area sizes*/
+        // average = sum of all entries / number of entries
+        return average / lotMap.size(); // divide sum of area by number of land lot objects in collection.
+    }
+
+    /**
+     * Returns iterator of the keys of all objects in registry.
+     * @return iterator of HashMap keys
+     */
+    private Iterator keyIterator()
+    {
+        return lotMap.keySet().iterator(); // make iterator of HashMap keys
+    }
+
+    /**
+     * Returns iterator of the values of all objects in registry.
+     * @return iterator of HashMap values.
+     */
+    private Iterator valuesIterator()
+    {
+        return lotMap.values().iterator(); //make iterator of HashMap values
     }
 }

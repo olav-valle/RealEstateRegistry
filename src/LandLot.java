@@ -40,6 +40,8 @@ public class LandLot
         this.ownerName = ownerName;
         this.area = area;
         this.lotName = lotName;
+        this.lotID = muniNumber + "-" + lotNumber + "/" + sectionNumber;
+
 
     }
 
@@ -55,7 +57,6 @@ public class LandLot
     public String getLotID()
     {
         // the lotID field has been instantiated by LandLot constructor
-        this.lotID = Integer.toString(muniNumber) + "-" + Integer.toString(lotNumber) + "/" + Integer.toString(sectionNumber);
         return this.lotID;
     }
 
