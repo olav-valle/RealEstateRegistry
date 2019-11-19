@@ -105,12 +105,13 @@ public class LotRegistry {
      */
     public double getAverageArea()
     {
-        double average = lotMap.entrySet().stream() /*stream of all entries in HashMap*/
-                .map(Map.Entry::getValue) /* map stream to HashMap values*/
-                .map(l -> l.getArea()) /*map stream to area size of land lots */
-                .reduce(0.0, Double::sum); /*sum all land lot area sizes*/
+        double areaSum = lotMap.values().stream()   /*stream of all entries in HashMap*/
+                .mapToDouble(LandLot::getArea)      /*map stream to area size of land lots */
+                .sum();                             /*sum all land lot area sizes*/
+
         // average = sum of all entries / number of entries
-        return average / lotMap.size(); // divide sum of area by number of land lot objects in collection.
+        // divide sum of area by number of land lot objects in collection.
+        return areaSum / lotMap.size();
     }
 
     /**
@@ -120,12 +121,19 @@ public class LotRegistry {
      */
     public Iterator filterByLotNumber(int lotNumber)
     {
-        this.lotMap.values().stream();
         Iterator it = valuesIterator();
+        HashSet matchedLots = new HashSet<LandLot>();
+
         while(it.hasNext())
         {
-            if(it.next().)
+            LandLot nextLot = (LandLot) it.next(); //iterator holds land lot objects
+            if(nextLot.getLotNumber() == lotNumber)
+            {
+                matchedLots.add(lotMap.get(lotNumber));
+            }
+
         }
+        return matchedLots.iterator();
     }
 
     /**
