@@ -20,8 +20,6 @@ public class LotRegistry {
     / utilising Map class methods.
     */
 
-
-
     /**
      * LotRegistry constructor. Instantiates HashMap for LandLot objects
      */
@@ -34,7 +32,6 @@ public class LotRegistry {
      */
     public void addLot(LandLot newLot)
     {
-
         this.lotMap.put((newLot.getLotID()),newLot);
     }//addLot
 
@@ -125,7 +122,7 @@ public class LotRegistry {
 
     /**
      * Returns iterator of the keys of all objects in registry.
-     * @return iterator of HashMap keys
+     * @return iterator of land lot IDs in registry
      */
     public Iterator getKeyIterator()
     {
@@ -134,7 +131,7 @@ public class LotRegistry {
 
     /**
      * Returns iterator of the values of all objects in registry.
-     * @return iterator of HashMap values.
+     * @return iterator of LandLot objects in registry.
      */
     public Iterator getValuesIterator()
     {

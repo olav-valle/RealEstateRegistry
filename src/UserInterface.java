@@ -1,4 +1,3 @@
-import javax.sound.midi.Soundbank;
 import java.util.Iterator;
 /**
  * The user interface of LotRegistry.
@@ -35,9 +34,7 @@ public class UserInterface {
      */
     public void initUI() {
 
-        boolean finished = false; // keep menu switch going
-
-        while (!finished){
+        while (true){ //endless loop
             mainMenu(); //prints the main menu list
             switch (intInput()){ // get int input from user
                 case LIST:      //lists all lots in registry
@@ -48,7 +45,7 @@ public class UserInterface {
                 case ADD:       //adds a lot to the registry
                     createNewLot();
                     break;
-                case REMOVE:
+                case REMOVE:    //remove a lot from registry
                     removeLot();
                     break;
                 case SEARCH:    //searches for lots in the registry
@@ -59,19 +56,19 @@ public class UserInterface {
                     System.out.println("The average area of a lot in the registry is " + lotRegistry.getAverageArea()
                             + " square meters");
                     break;
-                case QUIT:      //closes application
-                    System.out.println("Goodbye.");
-                    finished = true;
-                    break;
-                case TEST:      //adds lots to registry for testing purposes
-                    addLots();
                 case INVALID:   //invalid input uses default
                 default:        //informs user of menu input error
                     System.out.println("Please enter a whole number between " + LIST + " and " + QUIT);
                     break;
+                case TEST:      //adds lots to registry for testing purposes
+                    addLots();
+                    break;
+                case QUIT:      //closes application
+                    System.out.println("Goodbye.");
+                    System.exit(0); // exit with 0
+                    break;
             }//switch
         }//while
-     System.exit(0); // exit with 0
     }//initUI
 
     /**
@@ -246,7 +243,7 @@ public class UserInterface {
      */
     private void addLots()
     {
-        System.out.println("Super secret developer menu... Adding lots.");
+        System.out.println("Super secret developer option #11: Adding lots of lots...");
         lotRegistry.addLot(new LandLot("Gloppen",1445,77,631,"Jens Olsen", 1017.6, ""));
         lotRegistry.addLot(new LandLot("Gloppen",1445,77,131,"Nicolay Madsen", 661.3, "Syningom"));
         lotRegistry.addLot(new LandLot("Gloppen",1445,75,19,"Evilyn Jensen",650.6,"Fugletun"));

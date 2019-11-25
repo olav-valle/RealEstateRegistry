@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="RealEstateRegistry:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/RealEstateRegistry_jar</output-path>
-    <root id="archive" name="RealEstateRegistry.jar">
+  <artifact type="jar" name="lot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lot_jar</output-path>
+    <root id="archive" name="lot.jar">
       <element id="module-output" name="RealEstateRegistry" />
       <element id="library" level="module" name="JUnit4" module-name="RealEstateRegistry" />
       <element id="library" level="module" name="JUnit5.4" module-name="RealEstateRegistry" />
