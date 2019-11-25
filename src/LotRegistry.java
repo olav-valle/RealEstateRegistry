@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * A registry holding a collection of LandLot objects.
@@ -24,38 +23,20 @@ public class LotRegistry {
 
 
     /**
-     * LotRegistry constructor.
+     * LotRegistry constructor. Instantiates HashMap for LandLot objects
      */
     public LotRegistry() {
         this.lotMap = new HashMap<>();
-        // instantiates HashMap for LandLot objects
-    }
-
-    /**
-     * Creates a new land lot object and adds it to registry.
-     *
-     * Will be refactored to Interface class.
-     *
-     * @param muniName name of the municipality the lot is in
-     * @param muniNumber the municipality's ID number, a positive multi-digit integer
-     * @param lotNumber the lot number, a positive multi-digit integer
-     * @param sectionNumber the lot section number, a positive multi-digit integer
-     * @param ownerName the full name of the owner of the lot
-     * @param area the area size of the lot in square meters (m^2)
-     * @param lotName the name of the lot, or an empty string if lot has no name
-     */
-    public void addNewLot(String muniName, int muniNumber, int lotNumber, int sectionNumber, String ownerName, double area, String lotName)
-    {
-        addLot(new LandLot(muniName, muniNumber, lotNumber, sectionNumber, ownerName, area, lotName));
-    }
+    }//LotRegistry
 
     /**
      * Add a LandLot object to the registry.
      */
     public void addLot(LandLot newLot)
     {
+
         this.lotMap.put((newLot.getLotID()),newLot);
-    }
+    }//addLot
 
     /**
      * Remove a LandLot object from registry by specifying the lot ID of the lot.
@@ -74,7 +55,7 @@ public class LotRegistry {
      * @return iterator containing land lot objects with matching lot ID
      */
     public Iterator search(int muniNo, int lotNo, int sectionNo){
-        Iterator it = keyIterator(); // make iterator of HashMap keys
+        Iterator it = getKeyIterator(); // make iterator of HashMap keys
         HashSet match = new HashSet<LandLot>(); //collect matching LandLot objects
 
         Integer[] searchValues = new Integer[]{muniNo, lotNo, sectionNo};
@@ -122,10 +103,12 @@ public class LotRegistry {
      * Returns an iterator object with all land lots with a matching lot number.
      * @param lotNumber the lot number to filter land lots by.
      * @return iterator of land lots that match parameter.
+     * @deprecated unused in final applicaton
      */
+    @Deprecated
     public Iterator filterByLotNumber(int lotNumber)
     {
-        Iterator it = valuesIterator();
+        Iterator it = getValuesIterator();
         HashSet matchedLots = new HashSet<LandLot>();
 
         while(it.hasNext())
@@ -144,7 +127,7 @@ public class LotRegistry {
      * Returns iterator of the keys of all objects in registry.
      * @return iterator of HashMap keys
      */
-    private Iterator keyIterator()
+    public Iterator getKeyIterator()
     {
         return lotMap.keySet().iterator(); // make iterator of HashMap keys
     }
@@ -153,8 +136,13 @@ public class LotRegistry {
      * Returns iterator of the values of all objects in registry.
      * @return iterator of HashMap values.
      */
-    public Iterator valuesIterator()
+    public Iterator getValuesIterator()
     {
         return lotMap.values().iterator(); //make iterator of HashMap values
+    }
+
+    public LandLot getLotByID(String lotID)
+    {
+        return lotMap.get(lotID);
     }
 }

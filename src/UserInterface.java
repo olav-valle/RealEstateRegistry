@@ -1,3 +1,4 @@
+import javax.sound.midi.Soundbank;
 import java.util.Iterator;
 /**
  * The user interface of LotRegistry.
@@ -7,26 +8,31 @@ public class UserInterface {
     private Input input;
 
     //Menu item constants
-    final int LIST = 1;
-    final int ADD = 2;
-    final int SEARCH = 3;
-    final int AREA = 4;
-    final int QUIT = 5;
+    private final int LIST = 1;
+    private final int ADD = 2;
+    private final int SEARCH = 3;
+    private final int AREA = 4;
+    private final int REMOVE = 5;
+    private final int QUIT = 9;
 
     // constants reserved for testing and error handling
-    final int TEST = 9;
-    final int INVALID = 0;
+    private final int TEST = 11;
+    private final int INVALID = 0;
 
     //
     /**
      * Constructor.
      */
-    UserInterface()
+    public UserInterface()
     {
         lotRegistry = new LotRegistry();
         input = new Input();
-    }
+    }//UserInterface
 
+    /**
+     * The user interface. Displays a menu of choices of the applications functionality,
+     * and accepts user input to select a function.
+     */
     public void initUI() {
 
         boolean finished = false; // keep menu switch going
@@ -37,10 +43,13 @@ public class UserInterface {
                 case LIST:      //lists all lots in registry
                     System.out.println("-------------------------------------");
                     System.out.println("Listing all lots in registry.");
-                    printDetailsIterator(lotRegistry.valuesIterator());
+                    printDetailsIterator(lotRegistry.getValuesIterator());
                     break;
                 case ADD:       //adds a lot to the registry
                     createNewLot();
+                    break;
+                case REMOVE:
+                    removeLot();
                     break;
                 case SEARCH:    //searches for lots in the registry
                     searchRegistry();
@@ -60,11 +69,14 @@ public class UserInterface {
                 default:        //informs user of menu input error
                     System.out.println("Please enter a whole number between " + LIST + " and " + QUIT);
                     break;
-            }
-        }
+            }//switch
+        }//while
      System.exit(0); // exit with 0
-    }
+    }//initUI
 
+    /**
+     * Prints the main menu of the UI.
+     */
     private void mainMenu() {
         System.out.println("Select function by entering a number. ");
         System.out.println("-------------------------------------");
@@ -72,11 +84,15 @@ public class UserInterface {
         System.out.println("2. Add property to registry.");
         System.out.println("3. Search for properties.");
         System.out.println("4. Show average size of properties.");
-        System.out.println("5. Quit.");
+        System.out.println("5. Remove lot by ID.");
+        System.out.println("9. Quit.");
         System.out.println("-------------------------------------");
         System.out.println("Confirm selection with return.");
-    }
+    }//mainMenu
 
+    /**
+     * Guides the user through the creation of a new land lot, and adds it to the registry.
+     */
     private void createNewLot() {
         System.out.println("Enter name of municipality: ");
         String muniName = stringInput();
@@ -97,10 +113,51 @@ public class UserInterface {
         LandLot newLot = new LandLot(muniName, muniNumber, lotNumber, sectionNumber, ownerName, area, lotName);
         lotRegistry.addLot(newLot);
 
-    }
+    }//createNewLot
 
+    /**
+     * Removes a lot from the registry, using a user input lot ID of format "1234-56/789
+     */
+    private void removeLot()
+    {
+        System.out.println("-------------------------------------");
+        System.out.println("Enter the exact Lot ID of the lot to remove: ");
+        System.out.println("Format of ID is 1234-56/789");
+        System.out.println("-------------------------------------");
+        String lotID = stringInput();
+        LandLot lot = lotRegistry.getLotByID(lotID);
+        if (lot != null){
+            printLotDetails(lot);
+            System.out.println("-------------------------------------");
+            System.out.println("This lot will be deleted:");
+            System.out.println("Confirm: Y/N ");
+            if(stringInput().equalsIgnoreCase("y")){
+                lotRegistry.removeLot(lotID);
+                System.out.println("-------------------------------------");
+                System.out.println("            Lot removed.");
+                System.out.println("-------------------------------------");
+            }//if
+            else{
+                System.out.println("-------------------------------------");
+                System.out.println("            Removal aborted.");
+                System.out.println("-------------------------------------");
+            }//else
+        }//if (!= null)
+        else{
+            System.out.println("-------------------------------------");
+            System.out.println("Lot not found.");
+            System.out.println("Please confirm Lot ID, and try again.");
+            System.out.println("The ID you entered was: " + lotID);
+            System.out.println("-------------------------------------");
+        }//else
+    }//removeLot
+    /**
+     * Accepts user inputs of municipality number, lot number and lot section,
+     * and displays lots in the registry that match.
+     */
     private void searchRegistry()
     {
+        System.out.println("-------------------------------------");
         System.out.println("Enter municipality number: ");
         System.out.println("Enter 0 if unknown or irrelevant to search.");
         int muniNumber = intInput();
@@ -109,10 +166,11 @@ public class UserInterface {
         int lotNumber = intInput();
         System.out.println("Enter lot section number: ");
         System.out.println("Enter 0 if unknown or irrelevant to search.");
+        System.out.println("-------------------------------------");
         int sectionNumber = intInput();
         printDetailsIterator(lotRegistry.search(muniNumber, lotNumber, sectionNumber));
 
-    }
+    }//searchRegistry
 
     /**
      * Calls printLotDetails on each object in an iterator.
@@ -127,6 +185,14 @@ public class UserInterface {
 
     /**
      * Prints relevant details about a lot.
+     * Details are printed in the following format:
+     * -------------------------------------
+     * Lot ID:              1234-56/78
+     * Lot is locate in:    Municipality
+     * Owner of property:   Owner Name
+     * Name of lot:         Lot Name
+     * Size of lot:         1234.56 square meters
+     *
      * @param lot the lot whose details are to be printed.
      */
     private void printLotDetails(LandLot lot) {
@@ -188,4 +254,4 @@ public class UserInterface {
         lotRegistry.addLot(new LandLot("Gloppen",1445,69,47, "Elsa Indregård",1339.4,"Høiberg"));
 
     }//addLots
-}
+}//UserInterface
