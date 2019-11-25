@@ -73,19 +73,23 @@ public class LotRegistry {
      * and returns an iterator containing all matches.
      * @return iterator containing land lot objects with matching lot ID
      */
-    public Iterator search(String keyword){
+    public Iterator search(int muniNo, int lotNo, int sectionNo){
         Iterator it = keyIterator(); // make iterator of HashMap keys
         HashSet match = new HashSet<LandLot>(); //collect matching LandLot objects
+
+        Integer[] searchValues = new Integer[]{muniNo, lotNo, sectionNo};
 
         while(it.hasNext())
         {
             String id = (String) it.next(); // The keys of lotMap are Strings
             // get next lot ID, i.e. HashMap key
 
-            if(id.contains(keyword)) // if ID contains search term
+            for(int i = 0; i < 3; i ++){ //for integers in searchValues
+            if(id.contains(searchValues[i].toString()))// if ID contains searchValue[i]
             {
                 match.add(lotMap.get(id));  // add LandLot to set of matches
             }//if
+            }//for
         }//while
         return match.iterator();
     }
@@ -149,7 +153,7 @@ public class LotRegistry {
      * Returns iterator of the values of all objects in registry.
      * @return iterator of HashMap values.
      */
-    private Iterator valuesIterator()
+    public Iterator valuesIterator()
     {
         return lotMap.values().iterator(); //make iterator of HashMap values
     }
