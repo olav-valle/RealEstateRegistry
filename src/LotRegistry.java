@@ -29,6 +29,7 @@ public class LotRegistry {
 
     /**
      * Add a LandLot object to the registry.
+     * @param newLot a LandLot object that is to be added to the registry.
      */
     public void addLot(LandLot newLot)
     {
@@ -37,6 +38,7 @@ public class LotRegistry {
 
     /**
      * Remove a LandLot object from registry by specifying the lot ID of the lot.
+     * @param lotID the unique ID of the lot that is to be removed, in the format "1234-56/789"
      */
     public void removeLot(String lotID)
     {
@@ -107,6 +109,8 @@ public class LotRegistry {
     {
         Iterator it = getValuesIterator();
         HashSet matchedLots = new HashSet<LandLot>();
+        //HashSet, because set can only contain one copy of object
+        //this avoids duplicates of lots being returned, if a lot matches on several fields
 
         while(it.hasNext())
         {
@@ -124,7 +128,7 @@ public class LotRegistry {
      * Returns iterator of the keys of all objects in registry.
      * @return iterator of land lot IDs in registry
      */
-    public Iterator getKeyIterator()
+    private Iterator getKeyIterator()
     {
         return lotMap.keySet().iterator(); // make iterator of HashMap keys
     }
@@ -138,6 +142,11 @@ public class LotRegistry {
         return lotMap.values().iterator(); //make iterator of HashMap values
     }
 
+    /**
+     * Returns the lot with the specified lot ID
+     * @param lotID the ID of the lot, formatted "1234-56/789"
+     * @return the LandLot object with matching lotID.
+     */
     public LandLot getLotByID(String lotID)
     {
         return lotMap.get(lotID);

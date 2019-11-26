@@ -1,2 +1,37 @@
 Svar på oppgave 5
 
+Kobling: Klassene er fortrinnsvis løst koblet. De utfører ingen metodekall "oppover" i systemet, og alle public metoder
+returnerer iteratorer eller primitive typer, med ett unntak. Unntaket er LandLot objekter, som blir returnert til
+UserInterface fra LotRegistry i ett enkelttilfelle, men dette er allerede en objekttype UserInterface bruker fra før.
+Et annet element som kan være en for sterk kobling, er navnet på metodene som returnerer iteratorer av HashMap-ets
+verdier. Denne heter getValuesIterator(), noe som kan avsløre at LotRegistry benytter et
+Map med LandLot objekter som verdi. Disse burde vært navngitt på en mer anonym måte, et
+Dette knytter inn i poenget angående refaktorering av LotRegistry-metodene, i avsnittet om cohesion.
+
+Cohesion: Hver klasse har ansvar for å håndtere sine egne data, og har kun metoder som spiller inn i denne håndteringen.
+F.eks. er det en egen klasse som håndterer System.in input fra bruker, og returnerer dette til kalleren.
+
+LotRegistry utfører selv filtreringen og manipulering av LandLot objekter i HashMap samlingen der nødvendig,
+og returnerer iteratorer eller selve LandLot objektet til kalleren. Det kan tenkes at det her hadde vært mulig å
+refaktorere noen av metodene i LotRegistry slik at det kun har en metode som lager og returnerer Iterator objekter,
+da dette er noe som brukes flere plasser i koden.
+Dette er på den annen side en enkel handling som ikke krever mye kode, og en refaktorering hadde nok vært mer krevende
+enn det jeg har kunnskap til.
+
+Utregningen av gjennomsnittsareal ligger i LotRegistry, da dette har med data som ligger i registeret å gjøre.
+Utskriften av dette skjer via et enkelt metodekall fra UserInterface, på LotRegistry.getAverageArea().
+Dette kallet skjer inne i switch case-en som fungerer som hovedmeny, og burde nok derfor vært faktorert til sin egen metode
+for å gjøre koden mer lettleselig. Dette gjelder også for feilmeldingen brukeren får når de gir et input tall som ikke
+har en case (altså default), hvor de to System.out.println kallene kunne vært satt i sin egen metode.
+Disse to tilfellene har kodesnutter som er så små, at det kan argumenteres for at å refaktorere de til egne metoder ville
+gjort lesing av initUI() metoden mer tungvindt, da man ville ha måtte funnet metodene i UserInterface klassen
+kun for å lese 3 korte Strings
+
+UserInterface står for det meste kun for å lese og printe informasjon om LandLot objekter, eller primitive
+verdier som LotRegistry returnerer.
+
+En av de store gjenværende problemene med applikasjonen, har med brukerinput.
+Om en bruker ikke gir noe input når dette blir bedt om, og isteden kun trykker return med tom prompt,
+går ikke programmet videre med default input. Programmet vil isteden gjøre et line break i terminalen, for så å fortsette
+å vente på input. Dette har jeg ikke noen god løsning på, og har derfor valgt å uttrykke for brukeren nøyaktig
+hva som skal gjøres hvis det ønskes å gi en tom verdi, i håp om at dette ungås under bruk.

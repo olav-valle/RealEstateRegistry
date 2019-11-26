@@ -38,9 +38,7 @@ public class UserInterface {
             mainMenu(); //prints the main menu list
             switch (intInput()){ // get int input from user
                 case LIST:      //lists all lots in registry
-                    System.out.println("-------------------------------------");
-                    System.out.println("Listing all lots in registry.");
-                    printDetailsIterator(lotRegistry.getValuesIterator());
+                    listLots();
                     break;
                 case ADD:       //adds a lot to the registry
                     createNewLot();
@@ -87,6 +85,20 @@ public class UserInterface {
         System.out.println("Confirm selection with return.");
     }//mainMenu
 
+    /**
+     *
+     */
+    private void listLots()
+    {
+        if (lotRegistry.getRegistrySize() != 0) {
+            System.out.println("-------------------------------------");
+            System.out.println("Listing all " + lotRegistry.getRegistrySize() + " lots in registry.");
+            printDetailsIterator(lotRegistry.getValuesIterator());
+        }
+        else {
+            System.out.println("No lots found in registry.");
+        }
+    }
     /**
      * Guides the user through the creation of a new land lot, and adds it to the registry.
      */
