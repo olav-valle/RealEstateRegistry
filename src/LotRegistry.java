@@ -102,9 +102,7 @@ public class LotRegistry {
      * Returns an iterator object with all land lots with a matching lot number.
      * @param lotNumber the lot number to filter land lots by.
      * @return iterator of land lots that match parameter.
-     * @deprecated unused in final applicaton
      */
-    @Deprecated
     public Iterator filterByLotNumber(int lotNumber)
     {
         Iterator it = getValuesIterator();

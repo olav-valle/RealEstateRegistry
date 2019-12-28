@@ -118,7 +118,7 @@ public class UserInterface {
         System.out.println("Enter lot name: ");
         System.out.println("[Leave blank if lot has no name]");
         String lotName = input.getString();
-
+//TODO check inputs
         LandLot newLot = new LandLot(muniName, muniNumber, lotNumber, sectionNumber, ownerName, area, lotName);
         lotRegistry.addLot(newLot);
 
@@ -183,7 +183,7 @@ public class UserInterface {
 
     /**
      * Calls printLotDetails on each object in an iterator.
-     * @param it
+     * @param it iterator of lots to print details
      */
     private void printDetailsIterator(Iterator it)
     {

@@ -7,3 +7,4 @@ public class RealEstateRegistry {
         ui.initUI();
     }
 }
+

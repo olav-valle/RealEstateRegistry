@@ -20,10 +20,15 @@ public class Input {
     public int getIntInput()
     {
         int inputInt = 0; //returns 0 as default, in case of user error
-        if (input.hasNextInt()) {
-            inputInt = input.nextInt();
+        if (input.hasNextLine()) {
+            String tempString  = input.nextLine();
+                    if(tempString.isBlank()){
+                        tempString = "0";
+                    }
+
+            inputInt =  Integer.parseInt(tempString);
         }
-        input.nextLine(); // solves problem of nextInt() leaving a line break behind
+        //input.nextLine(); // solves problem of nextInt() leaving a line break behind
         return inputInt;
     }
     /**
@@ -34,9 +39,9 @@ public class Input {
     {
         double inputDouble = 0;
         if (input.hasNextDouble()) {
-            inputDouble = input.nextDouble();
+            inputDouble = Double.parseDouble(input.nextLine());
         }
-        input.nextLine(); // solves problem of leaving a line break behind
+        //input.nextLine(); // solves problem of leaving a line break behind
         return inputDouble;
     }
 
@@ -48,7 +53,7 @@ public class Input {
         String inputString = "";
         if(input.hasNext())
         {
-            inputString = input.next();
+            inputString = input.nextLine();
         }
         return inputString;
     }

@@ -25,7 +25,7 @@ for å gjøre koden mer lettleselig. Dette gjelder også for feilmeldingen bruke
 har en case (altså default), hvor de to System.out.println kallene kunne vært satt i sin egen metode.
 Disse to tilfellene har kodesnutter som er så små, at det kan argumenteres for at å refaktorere de til egne metoder ville
 gjort lesing av initUI() metoden mer tungvindt, da man ville ha måtte funnet metodene i UserInterface klassen
-kun for å lese 3 korte Strings
+kun for å lese 3 korte Strings.
 
 UserInterface står for det meste kun for å lese og printe informasjon om LandLot objekter, eller primitive
 verdier som LotRegistry returnerer.
