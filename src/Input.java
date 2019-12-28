@@ -25,10 +25,12 @@ public class Input {
                     if(tempString.isBlank()){
                         tempString = "0";
                     }
-
-            inputInt =  Integer.parseInt(tempString);
+//TODO read more about Integer.parseInt(). How does it handle parsing strings that are alpha?
+            // judging by the NumberFormatException, I'd say the answer is "badly"...
+            inputInt = Integer.parseInt(tempString);
         }
         //input.nextLine(); // solves problem of nextInt() leaving a line break behind
+        System.out.println(inputInt);
         return inputInt;
     }
     /**
@@ -38,8 +40,12 @@ public class Input {
     public double getDoubleInput()
     {
         double inputDouble = 0;
-        if (input.hasNextDouble()) {
-            inputDouble = Double.parseDouble(input.nextLine());
+        if (input.hasNextLine()) {
+            String tempDouble = input.nextLine();
+                if(tempDouble.isBlank()){
+                    tempDouble = "0";
+                }
+            inputDouble = Double.parseDouble(tempDouble);
         }
         //input.nextLine(); // solves problem of leaving a line break behind
         return inputDouble;
