@@ -20,17 +20,29 @@ public class Input {
     public int getIntInput()
     {
         int inputInt = 0; //returns 0 as default, in case of user error
+
         if (input.hasNextLine()) {
+
             String tempString  = input.nextLine();
-                    if(tempString.isBlank()){
+
+                if( tempString.trim().isBlank() ){
                         tempString = "0";
-                    }
-//TODO read more about Integer.parseInt(). How does it handle parsing strings that are alpha?
+                }
+
+                try{
+                    inputInt = Integer.parseInt(tempString);
+                }
+                catch (NumberFormatException nonNumericInput){
+                    inputInt = 0;
+                }
+
+            //TODO read more about Integer.parseInt(). How does it handle parsing strings that are alpha?
             // judging by the NumberFormatException, I'd say the answer is "badly"...
-            inputInt = Integer.parseInt(tempString);
-        }
+
+        }// if(hasNextLine)
+
         //input.nextLine(); // solves problem of nextInt() leaving a line break behind
-        System.out.println(inputInt);
+
         return inputInt;
     }
     /**
