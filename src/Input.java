@@ -25,12 +25,8 @@ public class Input {
 
             String tempString  = input.nextLine();
 
-                if( tempString.trim().isBlank() ){
-                        tempString = "0";
-                }
-
                 try{
-                    inputInt = Integer.parseInt(tempString);
+                    inputInt = Integer.parseInt(tempString.trim());
                 }
                 catch (NumberFormatException nonNumericInput){
                     inputInt = 0;
@@ -40,8 +36,6 @@ public class Input {
             // judging by the NumberFormatException, I'd say the answer is "badly"...
 
         }// if(hasNextLine)
-
-        //input.nextLine(); // solves problem of nextInt() leaving a line break behind
 
         return inputInt;
     }
@@ -53,11 +47,14 @@ public class Input {
     {
         double inputDouble = 0;
         if (input.hasNextLine()) {
+
             String tempDouble = input.nextLine();
-                if(tempDouble.isBlank()){
-                    tempDouble = "0";
-                }
-            inputDouble = Double.parseDouble(tempDouble);
+
+            try {
+                inputDouble = Double.parseDouble(tempDouble);
+            } catch (NumberFormatException nonNumericInput) {
+                inputDouble = 0.0;
+            }
         }
         //input.nextLine(); // solves problem of leaving a line break behind
         return inputDouble;
@@ -69,7 +66,7 @@ public class Input {
      */
     public String getString() {
         String inputString = "";
-        if(input.hasNext())
+        if(input.hasNextLine())
         {
             inputString = input.nextLine();
         }
